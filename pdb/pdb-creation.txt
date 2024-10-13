@@ -1,0 +1,4 @@
+Enter PDB name:
+bible database with chapter
+Creating with PDB name--(BIBLE_DATABASE_WITH_CHAPTER) and PDB admin--(BIBLE_DATABASE_WITH_CHAPTER)
+Pluggable Database created successfully!

@@ -1,1 +1,2 @@
-I'm creating a file.
+I will create the PDB. I will name the PDB bible database with chapter.
+PDB has been created.
