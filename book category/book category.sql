@@ -488,6 +488,7 @@ WHERE
                           '^Prophets',
                           'i' )
     );
+
 INSERT INTO book_belongs_to_many_book_categories_and_book_category_contains_multiple_books (
     book_id,
     book_category_id
@@ -524,149 +525,73 @@ INSERT INTO book_belongs_to_many_book_categories_and_book_category_contains_mult
                               '^John$',
                               'i' )
         );
---INSERT INTO book_belongs_to_many_book_categories_and_book_category_contains_multiple_books (
---    book_id,
---    book_category_id
---)
---SELECT
---    book_id,
---    (
---        SELECT
---            "A2"."BOOK_CATEGORY_ID" "BOOK_CATEGORY_ID"
---        FROM
---            "BIBLE_DATABASE_WITH_CHAPTER"."BOOK_CATEGORY" "A2"
---        WHERE
---            REGEXP_LIKE ( "A2"."BOOK_CATEGORY",
---                          '^Paul''s letters$',
---                          'i' )
---    )
---FROM
---    (
---        SELECT
---            book_id
---        FROM
---            book_category_many_to_many
---        WHERE
---            REGEXP_LIKE ( book_category,
---                          '^Paul''s letters to churches',
---                          'i' )
---        UNION
---        SELECT
---            book_id
---        FROM
---            book_category_many_to_many
---        WHERE
---            REGEXP_LIKE ( book_category,
---                          '^Paul''s letters to pastors',
---                          'i' )
---        UNION
---        SELECT
---            book_id
---        FROM
---            book
---        WHERE
---            REGEXP_LIKE ( book,
---                          '^John$',
---                          'i' )
---    );
---select book_id,(select 1 from dual) from(  SELECT
---            book_id
---        FROM
---            book_category_many_to_many
---        WHERE
---            REGEXP_LIKE(book_category, '^Paul''s letters to churches', 'i')
---        UNION
---        SELECT
---            book_id
---        FROM
---            book_category_many_to_many
---        WHERE
---            REGEXP_LIKE(book_category, '^Paul''s letters to pastors', 'i')
---        UNION
---        SELECT
---            book_id
---        FROM
---            book
---        WHERE
---            REGEXP_LIKE(book, '^John$', 'i'));
---SELECT
---            book_id
---        FROM
---            book_category_many_to_many
---        WHERE
---            REGEXP_LIKE(book_category, '^Paul''s letters to churches', 'i')
---        UNION
---        SELECT
---            book_id
---        FROM
---            book_category_many_to_many
---        WHERE
---            REGEXP_LIKE(book_category, '^Paul''s letters to pastors', 'i')
---        UNION
---        SELECT
---            book_id
---        FROM
---            book
---        WHERE
---            REGEXP_LIKE(book, '^John$', 'i');
---SELECT
---            book_id
---        FROM
---            book_category_many_to_many
---        WHERE
---            REGEXP_LIKE(book_category, '^Paul''s letters to churches', 'i')
---        UNION
---        SELECT
---            book_id
---        FROM
---            book_category_many_to_many
---        WHERE
---            REGEXP_LIKE(book_category, '^Paul''s letters to pastors', 'i')
---        UNION
---        SELECT
---            book_id
---        FROM
---            book
---        WHERE
---            REGEXP_LIKE(book, '^John$', 'i')
---SELECT
---    book_id,
---    (
---        SELECT
---            "A2"."BOOK_CATEGORY_ID" "BOOK_CATEGORY_ID"
---        FROM
---            "BIBLE_DATABASE_WITH_CHAPTER"."BOOK_CATEGORY" "A2"
---        WHERE
---            REGEXP_LIKE ( "A2"."BOOK_CATEGORY",
---                          '^Paul''s letters$',
---                          'i' )
---    )
---FROM
---    (
---        SELECT
---            book_id
---        FROM
---            book_category_many_to_many
---        WHERE
---            REGEXP_LIKE ( book_category,
---                          '^Paul''s letters to churches',
---                          'i' )
---        UNION
---        SELECT
---            book_id
---        FROM
---            book_category_many_to_many
---        WHERE
---            REGEXP_LIKE ( book_category,
---                          '^Paul''s letters to pastors',
---                          'i' )
---        UNION
---        SELECT
---            book_id
---        FROM
---            book
---        WHERE
---            REGEXP_LIKE ( book,
---                          '^John$',
---                          'i' )
---    );
+
+INSERT INTO book_belongs_to_many_book_categories_and_book_category_contains_multiple_books (
+    book_id,
+    book_category_id
+)
+    SELECT
+        book_id,
+        (
+            SELECT
+                "A2"."BOOK_CATEGORY_ID" "BOOK_CATEGORY_ID"
+            FROM
+                "BIBLE_DATABASE_WITH_CHAPTER"."BOOK_CATEGORY" "A2"
+            WHERE
+                REGEXP_LIKE ( "A2"."BOOK_CATEGORY",
+                              '^Paul''s letters$',
+                              'i' )
+        )
+    FROM
+        (
+            SELECT
+                book_id
+            FROM
+                book_category_many_to_many
+            WHERE
+                REGEXP_LIKE ( book_category,
+                              '^Paul''s letters to churches',
+                              'i' )
+            UNION
+            SELECT
+                book_id
+            FROM
+                book_category_many_to_many
+            WHERE
+                REGEXP_LIKE ( book_category,
+                              '^Paul''s letters to pastors',
+                              'i' )
+            UNION
+            SELECT
+                book_id
+            FROM
+                book
+            WHERE
+                REGEXP_LIKE ( book,
+                              '^Philemon$',
+                              'i' )
+        );
+
+INSERT INTO book_belongs_to_many_book_categories_and_book_category_contains_multiple_books (
+    book_id,
+    book_category_id
+)
+    SELECT
+        "A1"."BOOK_ID" "BOOK_ID",
+        (
+            SELECT
+                "A2"."BOOK_CATEGORY_ID" "BOOK_CATEGORY_ID"
+            FROM
+                "BIBLE_DATABASE_WITH_CHAPTER"."BOOK_CATEGORY" "A2"
+            WHERE
+                REGEXP_LIKE ( "A2"."BOOK_CATEGORY",
+                              '^Apocalyptic literature',
+                              'i' )
+        )              "1"
+    FROM
+        "BIBLE_DATABASE_WITH_CHAPTER"."BOOK" "A1"
+    WHERE
+        REGEXP_LIKE ( "BOOK",
+                      '(Isa)|(Jeremi)|(Ezek)|(Joel)|(Zechar)|(Daniel)|(Matthew)|(Mark)|(Thessalonians 2)|(Timothy 1)|(Peter 2)|(Jude)|(Revelation)'
+                      ,
+                      'i' );
